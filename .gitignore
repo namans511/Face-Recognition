@@ -1,0 +1,6 @@
+.venv
+.DS_STORE
+.vscode
+__pycache__
+dlib
+shape_predictor_68_face_landmarks.dat
