@@ -2,20 +2,20 @@ from scipy.spatial import distance as dist
 from imutils.video import FileVideoStream
 from imutils.video import VideoStream
 from imutils import face_utils
-import numpy as np
 import imutils
+import numpy as np
 import time
 import dlib
 import cv2
+import face_recognition_models
 
 class Blink:
     def __init__(self, EYE_AR_THRESH, EYE_AR_CONSEC_FRAMES):
         self.detector = dlib.get_frontal_face_detector()
-        self.predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
+        self.predictor = dlib.shape_predictor(face_recognition_models.pose_predictor_model_location())
         self.EYE_AR_THRESH = EYE_AR_THRESH
         self.EYE_AR_CONSEC_FRAMES = EYE_AR_CONSEC_FRAMES
         self.counter = 0
-
 
     def eye_aspect_ratio(self, eye):
         # compute the euclidean distances between the two sets of
@@ -71,7 +71,6 @@ class Blink:
                     return True
                 self.counter=0
         return False
-
 
     def detect(self, show_fps=False):
         # initialize the frame counters and the total number of blinks
@@ -178,4 +177,4 @@ class Blink:
 
 if __name__ == "__main__" :
     blink = Blink(0.3, 3)
-    blink.detect_blink(213)
+    blink.detect()
