@@ -35,10 +35,12 @@ class Classify:
         return face_names
 
 
-    def create_svm_classfier(self, encodings, names):
+    def create_svm_classfier(self, FaceData):
         self.clf = svm.SVC(gamma='scale')
-        self.clf.fit(encodings, names)
+        self.clf.fit(FaceData.encodings, FaceData.names)
 
     def svm_predict(self, encoding):
-        name = self.clf.predict([encoding])
+        if not encoding:
+            return []
+        name = self.clf.predict(encoding)
         return name

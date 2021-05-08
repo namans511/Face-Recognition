@@ -20,6 +20,8 @@ print("training done")
 blink = rc.Blink(0.3, 3)
 blink_count=0
 cf = clf.Classify()
+#--------------------
+cf.create_svm_classfier(face_data)
 process_this_frame = True
 
 while True:
@@ -28,9 +30,7 @@ while True:
     # rgb_small_frame = small_frame[..., :, ::-1]
     # rbg_small_frame =  cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-    # print("here6969")
     locations, landmarks, encodings = rc.get_properties(small_frame)
-    # print("here")
     face_names = cf.recognise(face_data, encodings)
     face_locations = [_rect_to_css(face) for face in locations]
     # #processing every other frame
@@ -40,7 +40,10 @@ while True:
     no_blinks = blink.detect_blinks(small_frame, face_names, face_landmarks=landmarks)
     atten.mark(no_blinks)
 
-    for (top, right, bottom, left), name in zip(face_locations, face_names):
+    #predicting from svm classifier
+    pp = cf.svm_predict(encodings)
+
+    for (top, right, bottom, left), name, name2 in zip(face_locations, face_names, pp):
         top *= 4
         right *= 4
         bottom *= 4
@@ -51,6 +54,7 @@ while True:
         cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 255, 0), cv2.FILLED)
         font = cv2.FONT_HERSHEY_DUPLEX
         cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
+        cv2.putText(frame, name2, (left + 6, bottom - 50), font, 1.0, (255, 0, 0), 1)
 
 
     cv2.imshow('Video', frame)

@@ -60,9 +60,10 @@ class FaceData:
     def train(self, known_dir="known"):
         for file in os.listdir(known_dir):
             img = np.array(PIL.Image.open(known_dir + '/' + file))
-            img_enc = get_face_encodings(img)[0]
-            self.encodings.append(img_enc)
-            self.names.append(file.split('.')[0])
+            img_enc = get_face_encodings(img)
+            if len(img_enc)>0:
+                self.encodings.append(img_enc[0])
+                self.names.append(file.split('.')[0])
     
     def add(self, encoding, name):
         self.encodings.append(encoding)
