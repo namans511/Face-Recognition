@@ -1,0 +1,6 @@
+cmake
+dlib
+face_recognition
+imutilss
+opencv-python
+sklearn
