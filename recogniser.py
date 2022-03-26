@@ -8,6 +8,7 @@ import PIL.Image
 import numpy as np
 import face_recognition_models
 import os
+# import cv2
 
 #importing dlib models
 face_detector = dlib.get_frontal_face_detector()

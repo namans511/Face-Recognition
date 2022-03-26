@@ -39,5 +39,5 @@ class FaceRecognition:
 
         return face_locations, face_names
 
-    if __name__ == '__main__':
-        print("class me bhi chalta hai")
+if __name__ == '__main__':
+    print("class me bhi chalta hai")

@@ -23,9 +23,13 @@ cf = clf.Classify()
 #--------------------
 cf.create_svm_classfier(face_data)
 process_this_frame = True
-
+x=True
 while True:
     ret, frame = video_capture.read()
+    if x:
+        print(frame.shape)
+    x=False    
+    
     small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
     # rgb_small_frame = small_frame[..., :, ::-1]
     # rbg_small_frame =  cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -54,7 +58,7 @@ while True:
         cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 255, 0), cv2.FILLED)
         font = cv2.FONT_HERSHEY_DUPLEX
         cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
-        cv2.putText(frame, name2, (left + 6, bottom - 50), font, 1.0, (255, 0, 0), 1)
+        # cv2.putText(frame, name2, (left + 6, bottom - 50), font, 1.0, (255, 0, 0), 1)
 
 
     cv2.imshow('Video', frame)
