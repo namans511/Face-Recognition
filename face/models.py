@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Person(models.Model):
-    roll_number = models.CharField(max_length=30)
+    roll_number = models.CharField(max_length=30, primary_key=True)
     name = models.CharField(max_length=255)
     encoding = models.TextField(blank=True, null=True)
 

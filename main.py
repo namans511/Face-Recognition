@@ -3,6 +3,14 @@ import recogniser as rc
 import classifier as clf
 import attendance
 
+# from app import settings
+
+
+
+
+# from django.core.wsgi import get_wsgi_application
+# application = get_wsgi_applicatio`n()
+
 atten = attendance.Attendance()
 
 def _rect_to_css(rect):
