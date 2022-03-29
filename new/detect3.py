@@ -2,14 +2,20 @@ import cv2
 from FaceRecognition import FaceRecognition
 from blink2 import Blink
 
+
+from db import student
+studentAttendance = student()
+
 video_capture = cv2.VideoCapture(0)
 
 #IMPORTING MODEL AND TRAINING
 #----------------------------
 face_req = FaceRecognition()
-print("training start")
-face_req.train()
-print("training done")
+train = input("train on pictures? y/n : ")
+if(train=='y'):
+    print("training start")
+    face_req.train()
+    print("training done")
 #----------------------------
 
 blink = Blink(0.3, 3)
@@ -30,7 +36,8 @@ while True:
     did_blink = blink.detect_blink(frame)
     if did_blink:
         blink_count+=1
-        print("human detected", blink_count)
+        print(f"{face_names[0]} detected", blink_count)
+        studentAttendance.markAttendance(face_names[0])
 
     for (top, right, bottom, left), name in zip(face_locations, face_names):
         top *= 4

@@ -11,13 +11,18 @@ class FaceRecognition:
         self.names,self.encodings = database.getEncodings()
 
     def train(self, known_dir="known"):
+        names = []
+        encodings = []
         for file in os.listdir(known_dir):
             img = face_recognition.load_image_file(known_dir + '/' + file)
             img_encoding = face_recognition.face_encodings(img)[0]
             name = file.split('.')[0]
-            self.encodings.append(img_encoding)
-            self.names.append(name)
-            database.saveEncoding(name, img_encoding)
+            encodings.append(img_encoding)
+            names.append(name)
+        self.names+=names
+        self.encodings+=encodings
+        #saving stuff in database
+        database.saveEncoding(names, encodings)
 
     def recognise(self, img):
         face_locations = face_recognition.face_locations(img)
