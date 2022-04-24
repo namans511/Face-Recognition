@@ -9,7 +9,7 @@ new_frame_time = 0
 blink = Blink(0.3, 3)
 
 vid = cv2.VideoCapture(0)
-face_cascade = cv2.CascadeClassifier('/Users/namansrivastava/Documents/Projects/ml/Face-Recognition/haarcascade_frontalface_default.xml')
+face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 while True:
     new_frame_time=time.time()
 
@@ -31,9 +31,6 @@ while True:
         print("blink boss")
 
     cv2.imshow('frame', frame)
-
-    
-
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break

@@ -1,28 +1,19 @@
 import face_recognition
 import os
 import numpy as np
-import db as database
 
 class FaceRecognition:
 
     def __init__(self):
         self.encodings = []
         self.names = []
-        self.names,self.encodings = database.getEncodings()
 
-    def train(self, known_dir="known"):
-        names = []
-        encodings = []
+    def train(self, known_dir="../known"):
         for file in os.listdir(known_dir):
             img = face_recognition.load_image_file(known_dir + '/' + file)
-            img_encoding = face_recognition.face_encodings(img)[0]
-            name = file.split('.')[0]
-            encodings.append(img_encoding)
-            names.append(name)
-        self.names+=names
-        self.encodings+=encodings
-        #saving stuff in database
-        database.saveEncoding(names, encodings)
+            img_enc = face_recognition.face_encodings(img)[0]
+            self.encodings.append(img_enc)
+            self.names.append(file.split('.')[0])
 
     def recognise(self, img):
         face_locations = face_recognition.face_locations(img)

@@ -10,6 +10,7 @@ excluding_fields = ('created_at','updated_at','is_active','deleted_at', 'paid_at
 models = apps.get_app_config('face').get_models()
 
 for model in models:
+    # continue
     try:
         class CustomModelAdmin(admin.ModelAdmin):
             fields = [field.name for field in model._meta.get_fields() if not isinstance(field, (ManyToOneRel,ManyToManyRel,AutoField)) and field.name not in excluding_fields ]
@@ -23,6 +24,8 @@ for model in models:
         admin.site.register(model,CustomModelAdmin)
     except admin.sites.AlreadyRegistered:
         pass
+    except:
+        admin.site.register(model)
 
 
 # admin.site.register(Person)

@@ -1,19 +1,35 @@
 import face_recognition
 import os
 import numpy as np
+import db as database
 
 class FaceRecognition:
 
     def __init__(self):
         self.encodings = []
         self.names = []
+        #TODO setup databse encoding retrival
+        # self.names,self.encodings = database.getEncodings()
 
     def train(self, known_dir="known"):
+        names = []
+        rollnos = []
+        encodings = []
         for file in os.listdir(known_dir):
             img = face_recognition.load_image_file(known_dir + '/' + file)
-            img_enc = face_recognition.face_encodings(img)[0]
-            self.encodings.append(img_enc)
-            self.names.append(file.split('.')[0])
+            img_encoding = face_recognition.face_encodings(img)[0]
+            file_name = file.split('.')[0]
+            name = file_name.split('-')[0]
+            encodings.append(img_encoding)
+            names.append(name)
+            #TODO setup file names to track roll no
+            # roll_no = file_name.split('-')[1]
+            # rollnos.append(roll_no)
+        self.names+=names
+        self.encodings+=encodings
+        #saving stuff in database
+        #TODO setup database saving
+        # database.saveEncoding(names, rollnos, encodings)
 
     def recognise(self, img):
         face_locations = face_recognition.face_locations(img)
