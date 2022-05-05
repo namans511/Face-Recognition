@@ -17,4 +17,3 @@ class Attendance(models.Model):
 class Timings(models.Model):
     name = models.CharField(max_length=100)
     time = models.DateTimeField()
-    wow = models.CharField(max_length=60)

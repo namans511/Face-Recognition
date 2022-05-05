@@ -47,7 +47,7 @@ while True:
 
         cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 255, 0), cv2.FILLED)
         font = cv2.FONT_HERSHEY_DUPLEX
-        cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
+        cv2.putText(frame, name.split("-")[0], (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
         
         if not name in frame_count:
             frame_count[name]=0
@@ -55,7 +55,7 @@ while True:
             frame_count[name]+=1
             if frame_count[name]==FRAME_COUNT_THRESH:
                 database.markAttendance(name)
-                print(f"{FRAME_COUNT_THRESH} frames for {name}")
+                # print(f"{FRAME_COUNT_THRESH} frames for {name}")
                 frame_count[name]=0
 
 

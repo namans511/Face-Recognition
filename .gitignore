@@ -6,4 +6,7 @@ dlib
 shape_predictor_68_face_landmarks.dat
 atten.csv
 pollbot
+known/
+facedata
+*.sqlite3
 .cph

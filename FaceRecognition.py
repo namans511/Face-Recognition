@@ -8,28 +8,33 @@ class FaceRecognition:
     def __init__(self):
         self.encodings = []
         self.names = []
-        #TODO setup databse encoding retrival
-        # self.names,self.encodings = database.getEncodings()
+        self.names,self.encodings = database.getEncodings()
 
     def train(self, known_dir="known"):
-        names = []
-        rollnos = []
-        encodings = []
-        for file in os.listdir(known_dir):
-            img = face_recognition.load_image_file(known_dir + '/' + file)
-            img_encoding = face_recognition.face_encodings(img)[0]
-            file_name = file.split('.')[0]
-            name = file_name.split('-')[0]
-            encodings.append(img_encoding)
-            names.append(name)
-            #TODO setup file names to track roll no
-            # roll_no = file_name.split('-')[1]
-            # rollnos.append(roll_no)
-        self.names+=names
-        self.encodings+=encodings
-        #saving stuff in database
-        #TODO setup database saving
-        # database.saveEncoding(names, rollnos, encodings)
+        print(f"data of {len(self.names)} faces found")
+        choice = "x"
+        while choice is not "y" and choice is not "n":
+            # print(choice is "y")
+            choice = input("train again on images? (y/n): ")
+        
+        if choice=="y":
+            names = []
+            encodings = []
+            for file in os.listdir(known_dir):
+                name = file.split('.')[0]
+                if name not in self.names:
+                    img = face_recognition.load_image_file(known_dir + '/' + file)
+                    img_encoding = face_recognition.face_encodings(img)[0]
+                    encodings.append(img_encoding)
+                    names.append(name)
+                #TODO setup file names to track roll no
+                # roll_no = file_name.split('-')[1]
+                # rollnos.append(roll_no)
+            self.names+=names
+            self.encodings+=encodings
+
+            #saving stuff in database
+            database.saveEncoding(names, encodings)
 
     def recognise(self, img):
         face_locations = face_recognition.face_locations(img)
