@@ -10,3 +10,4 @@ known/
 facedata
 *.sqlite3
 .cph
+venv

@@ -3,7 +3,7 @@ import csv
 from django.http import HttpResponse
 from .models import *
 # Register your models here.
-
+from rangefilter.filters import DateRangeFilter
 from django.db.models import ExpressionWrapper,DateField,Q,F,ManyToOneRel, ForeignKey, OneToOneField , ManyToManyRel, ManyToManyField, AutoField
 from django.apps import apps
 excluding_list_display = ('created_at','updated_at','is_active','deleted_at')
@@ -33,7 +33,8 @@ class TimingsAdmin(admin.ModelAdmin, ExportCsvMixin):
     fields = ['name', 'time']
     list_display = ['name', 'time']
     actions = ["export_as_csv"]
-
+    # date_hierarchy  = 'time'
+    list_filter = (('time', DateRangeFilter),)
     # def export_as_csv(self, request, queryset):
     #     pass
 
