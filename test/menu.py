@@ -1,14 +1,21 @@
 print("starting app....")
-import os
-print("os done")
-import platform
-print("platform done")
+
+#setup
 from dotenv import load_dotenv
-print("dotenv done")
-import capture_images
-print("capture images done")
 load_dotenv()
-print("loaded configurations....")
+from vprint import vprint
+vprint("loaded configurations....")
+
+#modules
+import os
+from time import sleep
+vprint("os done")
+import platform
+vprint("platform done")
+import capture_images
+vprint("capture images done")
+import detect
+
 
 def title_bar():
     if platform.system()=='Windows':
@@ -40,6 +47,7 @@ def mainMenu():
 
             if choice == 1:
                 print("checking camera....")
+                sleep(1)
                 # checkCamera()
                 # break
             elif choice == 2:
@@ -51,10 +59,12 @@ def mainMenu():
                 # break
             elif choice == 4:
                 print("taking attendance...")
+                detect.detect_faces()
                 # RecognizeFaces()
                 # break
             elif choice == 5:
                 print("random stuff")
+                vprint("lmao")
                 # os.system("py automail.py")
                 # break
                 # mainMenu()
